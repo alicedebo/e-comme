@@ -26,12 +26,12 @@ router.get('/:id', async(req, res) => {
 // create new product
 router.post('/', async (req, res) => {
   try {
-    const productData = await product.findAll({
+    const productData = await product.create({
       //todo
-    product_name: "Basketball",
-    price: 200.00,
-    stock: 3,
-    tagIds: [1, 2, 3, 4]
+    product_name: req.body.product_name,
+    price: req.body.price,
+    stock: req.body.stock,
+    tagIds: req.body.tagIds
   });  
   res.status(200).json(productData);
   } catch (err) {
@@ -69,7 +69,7 @@ router.put('/:id', (req, res) => {
     },
   })
     .then((product) => {
-      // find all associated tags from ProductTag
+      // find all associated tags from ProductTagnpm i
       return ProductTag.findAll({ where: { product_id: req.params.id } });
     })
     .then((productTags) => {
